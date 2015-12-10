@@ -29,6 +29,8 @@ use \Blockchain\Receive\Receive;
 use \Blockchain\Stats\Stats;
 use \Blockchain\Wallet\Wallet;
 
+use \Blockchain\V2\Receive\Receive as ReceiveV2;
+
 // Check if BCMath module installed
 if(!function_exists('bcscale')) {
     throw new Error("BC Math module not installed.");
@@ -62,13 +64,14 @@ class Blockchain {
         curl_setopt($this->ch, CURLOPT_TIMEOUT, 60);
         curl_setopt($this->ch, CURLOPT_CAINFO, dirname(__FILE__).'/Blockchain/ca-bundle.crt');
 
-        $this->Create   = new Create($this);
-        $this->Explorer = new Explorer($this);
-        $this->Push     = new Push($this);
-        $this->Rates    = new Rates($this);
-        $this->Receive  = new Receive($this);
-        $this->Stats    = new Stats($this);
-        $this->Wallet   = new Wallet($this);
+        $this->Create    = new Create($this);
+        $this->Explorer  = new Explorer($this);
+        $this->Push      = new Push($this);
+        $this->Rates     = new Rates($this);
+        $this->Receive   = new Receive($this);
+        $this->ReceiveV2 = new ReceiveV2($this->ch);
+        $this->Stats     = new Stats($this);
+        $this->Wallet    = new Wallet($this);
     }
 
     public function __destruct() {
