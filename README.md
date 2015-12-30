@@ -92,6 +92,8 @@ Documentation
 
 [Receive](docs/receive.md) - The easiest way to accept Bitcoin payments
 
+[Receive v2](docs/v2/receive.md) - The easiest way to accept Bitcoin payments with the v2 Receive API
+
 [Statistics](docs/stats.md) - Bitcoin network statistics
 
 [Wallet](docs/wallet.md) - Send and receive Bitcoin programmatically
