@@ -47,7 +47,7 @@ class WalletResponse
     /**
      * @var string
      */
-    public $link;
+    public $label;
 
     /**
      * Methods
@@ -67,8 +67,8 @@ class WalletResponse
             $this->address = $json['address'];
         }
 
-        if (array_key_exists('link', $json)) {
-            $this->link = $json['link'];
+        if (array_key_exists('label', $json)) {
+            $this->link = $json['label'];
         }
     }
 }

@@ -32,12 +32,12 @@ $wallet = $Blockchain->Create->create($password, $email=null, $label=null);
 ```
 
 ###WalletResponse
-The `WalletResponse` object contains fields for the wallet identifier (`guid`), the `address` for receiving Bitcoin, and a `link` to log into the wallet on the Blockchain website.
+The `WalletResponse` object contains fields for the wallet identifier (`guid`), the `address` for receiving Bitcoin, and a `label` for the first account of the wallet.
 
 ```php
 class WalletResponse {
     public $guid;                       // string
     public $address;                    // string
-    public $link;                       // string
+    public $label;                       // string
 }
 ```
