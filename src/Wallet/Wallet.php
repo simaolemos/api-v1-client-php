@@ -97,15 +97,6 @@ class Wallet {
         return false;
     }
 
-    public function consolidateAddresses($days=60) {
-        $consolidated = array();
-        $json = $this->call('auto_consolidate', array('days'=>intval($days)));
-        if(array_key_exists('consolidated', $json) && is_array($json['consolidated'])) {
-            $consolidated = $json['consolidated'];
-        }
-        return $consolidated;
-    }
-
     public function send($to_address, $amount, $from_address=null, $fee=null, $public_note=null) {
         if(!isset($amount))
             throw new ParameterError("Amount required.");

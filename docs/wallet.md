@@ -128,14 +128,6 @@ $result = $Blockchain->Wallet->unarchiveAddress($address);
 ```
 
 
-###Consolidate Addresses
-Removes inactive addresses from the wallet and sets them up as forwarding addresses. Callback notifications will continue to fire for these addresses, but they will not be part of the wallet. The `$days` parameter determines how long an address must have been inactive in order to be consolidated. A good value for this number is `60` days (the default). Returns a simple `string array` of addresses.
-
-```php
-$addresses = $Blockchain->Wallet->consolidateAddresses($days=60);
-```
-
-
 Return Objects
 --------------
 
