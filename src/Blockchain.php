@@ -43,7 +43,6 @@ if(!function_exists('curl_init')) {
 
 class Blockchain {
     const URL = 'https://blockchain.info/';
-    const SERVICE_URL = 'http://localhost';
 
     private $ch;
     private $api_code = null;
@@ -51,7 +50,9 @@ class Blockchain {
     const DEBUG = true;
     public $log = Array();
 
-    public function __construct($api_code=null) {
+    public function __construct($service_url, $api_code=null) {
+        $this->service_url = $service_url;
+
         if(!is_null($api_code)) {
             $this->api_code = $api_code;
         }
@@ -86,7 +87,7 @@ class Blockchain {
         $url = URL;
 
         if (($resource == "api/v2/create") || (substr($resource, 0, 8) === "merchant")) {
-            $url = SERVICE_URL;
+            $url = $this->service_url;
         }
 
         curl_setopt($this->ch, CURLOPT_URL, $url.$resource);
