@@ -92,7 +92,7 @@ class Blockchain {
 
         if (($resource == "api/v2/create") || (substr($resource, 0, 8) === "merchant")) {
             if ($this->service_url == null) {
-                throw new ApiError("When calling a merchant endpoint of creating a wallet, service_url must be set");
+                throw new ApiError("When calling a merchant endpoint or creating a wallet, service_url must be set");
             }
             $url = $this->service_url;
         }
