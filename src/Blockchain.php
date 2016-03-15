@@ -50,8 +50,8 @@ class Blockchain {
     const DEBUG = true;
     public $log = Array();
 
-    public function __construct($service_url, $api_code=null) {
-        $this->service_url = $service_url;
+    public function __construct($api_code=null) {
+        $this->service_url = null;
 
         if(!is_null($api_code)) {
             $this->api_code = $api_code;
@@ -83,10 +83,17 @@ class Blockchain {
         curl_setopt($this->ch, CURLOPT_TIMEOUT, intval($timeout));
     }
 
+    public function setServiceUrl($service_url) {
+        $this->service_url = $service_url;
+    }
+
     public function post($resource, $data=null) {
         $url = URL;
 
         if (($resource == "api/v2/create") || (substr($resource, 0, 8) === "merchant")) {
+            if ($this->service_url == null) {
+                throw new ApiError("When calling a merchant endpoint of creating a wallet, service_url must be set");
+            }
             $url = $this->service_url;
         }
 
