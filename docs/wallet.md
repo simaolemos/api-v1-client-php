@@ -5,9 +5,12 @@ Access a Blockchain wallet programmatically. Official documentation [here](https
 Basic Usage
 -----------
 The `Blockchain` object contains a single member `Wallet` object. The wallet credentials must be set before any functionality may be used. Accessing multiple wallets is as simple as setting the credentials before making wallet calls.
+In order to use Wallet and CreateWallet functionality, you must provide an URL to an instance of [service-my-wallet-v3](https://github.com/blockchain/service-my-wallet-v3).
+
 
 ```php
 $Blockchain = new \Blockchain\Blockchain($api_code);
+$Blockchain->setServiceUrl("http://localhost:3000");
 $Blockchain->Wallet->credentials('wallet-id-1', 'password-1', 'optional 2nd password');
 
 // Operations on "wallet-id-1"
@@ -125,14 +128,6 @@ Move an address from the archive to the active address list. Returns `true` on s
 
 ```php
 $result = $Blockchain->Wallet->unarchiveAddress($address);
-```
-
-
-###Consolidate Addresses
-Removes inactive addresses from the wallet and sets them up as forwarding addresses. Callback notifications will continue to fire for these addresses, but they will not be part of the wallet. The `$days` parameter determines how long an address must have been inactive in order to be consolidated. A good value for this number is `60` days (the default). Returns a simple `string array` of addresses.
-
-```php
-$addresses = $Blockchain->Wallet->consolidateAddresses($days=60);
 ```
 
 

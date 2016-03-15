@@ -56,12 +56,12 @@ class Wallet {
         return \Blockchain\Conversion\Conversion::BTC_int2str($json['balance']);
     }
 
-    public function getAddressBalance($address) {
-        return new WalletAddress($this->call('address_balance', array('address'=>$address)));
+    public function getAddressBalance($address, $confirmations=0) {
+        return new WalletAddress($this->call('address_balance', array('address'=>$address, 'confirmations'=>$confirmations)));
     }
 
-    public function getAddresses() {
-        $json = $this->call('list');
+    public function getAddresses($confirmations=0) {
+        $json = $this->call('list', array('confirmations'=>$confirmations));
         $addresses = array();
         foreach ($json['addresses'] as $address) {
             $addresses[] = new WalletAddress($address);
@@ -95,15 +95,6 @@ class Wallet {
             }
         }
         return false;
-    }
-
-    public function consolidateAddresses($days=60) {
-        $consolidated = array();
-        $json = $this->call('auto_consolidate', array('days'=>intval($days)));
-        if(array_key_exists('consolidated', $json) && is_array($json['consolidated'])) {
-            $consolidated = $json['consolidated'];
-        }
-        return $consolidated;
     }
 
     public function send($to_address, $amount, $from_address=null, $fee=null, $public_note=null) {

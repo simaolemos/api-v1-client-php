@@ -5,9 +5,11 @@ Create a new Blockchain wallet from this API endpoint. Offical documentation [he
 Basic Usage
 -----------
 Make calls on the `Create` member object within the `Blockchain` object. Please note than an `api_code` is required with Create Wallet permissions. You may request an API code [here](https://blockchain.info/api/api_create_code).
+In order to use Wallet and CreateWallet functionality, you must provide an URL to an instance of [service-my-wallet-v3](https://github.com/blockchain/service-my-wallet-v3).
 
 ```php
 $Blockchain = new \Blockchain\Blockchain($api_code);
+$Blockchain->setServiceUrl("http://localhost:3000");
 $Blockchain->Create->function(...)
 ```
 
@@ -32,12 +34,12 @@ $wallet = $Blockchain->Create->create($password, $email=null, $label=null);
 ```
 
 ###WalletResponse
-The `WalletResponse` object contains fields for the wallet identifier (`guid`), the `address` for receiving Bitcoin, and a `link` to log into the wallet on the Blockchain website.
+The `WalletResponse` object contains fields for the wallet identifier (`guid`), the `address` for receiving Bitcoin, and a `label` for the first account of the wallet.
 
 ```php
 class WalletResponse {
     public $guid;                       // string
     public $address;                    // string
-    public $link;                       // string
+    public $label;                       // string
 }
 ```

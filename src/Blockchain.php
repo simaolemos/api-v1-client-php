@@ -44,7 +44,6 @@ if(!function_exists('curl_init')) {
 class Blockchain {
     const URL = 'https://blockchain.info/';
 
-
     private $ch;
     private $api_code = null;
 
@@ -52,6 +51,8 @@ class Blockchain {
     public $log = Array();
 
     public function __construct($api_code=null) {
+        $this->service_url = null;
+
         if(!is_null($api_code)) {
             $this->api_code = $api_code;
         }
@@ -82,8 +83,21 @@ class Blockchain {
         curl_setopt($this->ch, CURLOPT_TIMEOUT, intval($timeout));
     }
 
+    public function setServiceUrl($service_url) {
+        $this->service_url = $service_url;
+    }
+
     public function post($resource, $data=null) {
-        curl_setopt($this->ch, CURLOPT_URL, self::URL.$resource);
+        $url = URL;
+
+        if (($resource == "api/v2/create") || (substr($resource, 0, 8) === "merchant")) {
+            if ($this->service_url == null) {
+                throw new ApiError("When calling a merchant endpoint or creating a wallet, service_url must be set");
+            }
+            $url = $this->service_url;
+        }
+
+        curl_setopt($this->ch, CURLOPT_URL, $url.$resource);
         curl_setopt($this->ch, CURLOPT_POST, true);
 
         curl_setopt($this->ch, CURLOPT_HTTPHEADER, 
@@ -106,6 +120,12 @@ class Blockchain {
     }
 
     public function get($resource, $params=null) {
+        $url = URL;
+
+        if (($resource == "api/v2/create") || (substr($resource, 0, 8) === "merchant")) {
+            $url = SERVICE_URL;
+        }
+
         curl_setopt($this->ch, CURLOPT_POST, false);
 
         if(!is_null($this->api_code)) {
@@ -114,7 +134,7 @@ class Blockchain {
         curl_setopt($this->ch, CURLOPT_HTTPHEADER, array());
 
         $query = http_build_query($params);
-        curl_setopt($this->ch, CURLOPT_URL, self::URL.$resource.'?'.$query);
+        curl_setopt($this->ch, CURLOPT_URL, $url.$resource.'?'.$query);
 
         return $this->_call();
     }

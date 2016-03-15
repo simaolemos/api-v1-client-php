@@ -13,13 +13,21 @@ Download the source or clone the repository. This php library works with the [Co
 $ composer install
 ```
 
-This will create the `/vendor` folder in the repository root. In the php source, simply:
+This will create the `/vendor` folder in the repository root. 
+
+In order to use Wallet and CreateWallet functionality, you must provide an URL to an instance of [service-my-wallet-v3](https://github.com/blockchain/service-my-wallet-v3).
+Before using these functionalities, call \Blockchain\Blockchain::setServiceUrl to set the URL to the instance of of [service-my-wallet-v3](https://github.com/blockchain/service-my-wallet-v3).
+
+In the php source, simply:
 ```php
 // Include the autoload.php from its vendor directory
 require 'vendor/autoload.php'
 
 // Create the base Blockchain class instance
 $Blockchain = new \Blockchain\Blockchain();
+
+// Needed before calling $Blockchain->Wallet or $Blockchain->Create
+$Blockchain->setServiceUrl('http://localhost:3000');
 ```
 
 All functionality is provided through the `Blockchain` object. 
@@ -29,7 +37,7 @@ All functionality is provided through the `Blockchain` object.
 The [official documentation](https://blockchain.info/api) lists API call limits, which may be bypassed with an API code. If you use a code, enter it when you create the `Blockchain` object:
 
 ```php
-$Blockchain = new \Blockchain\Blockchain($my_api_code);
+$Blockchain = new \Blockchain\Blockchain('http://localhost:3000', $my_api_code);
 ```
 
 If you need an API code, you may request one [here](https://blockchain.info/api/api_create_code).
