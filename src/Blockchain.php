@@ -88,7 +88,7 @@ class Blockchain {
     }
 
     public function post($resource, $data=null) {
-        $url = URL;
+        $url = Blockchain::URL;
 
         if (($resource == "api/v2/create") || (substr($resource, 0, 8) === "merchant")) {
             if ($this->service_url == null) {
@@ -120,7 +120,7 @@ class Blockchain {
     }
 
     public function get($resource, $params=null) {
-        $url = URL;
+        $url = Blockchain::URL;
 
         if (($resource == "api/v2/create") || (substr($resource, 0, 8) === "merchant")) {
             $url = SERVICE_URL;
