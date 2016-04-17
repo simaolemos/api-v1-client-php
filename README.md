@@ -7,10 +7,10 @@ An official PHP library for interacting with the blockchain.info API.
 Getting Started
 ---------------
 
-Download the source or clone the repository. This php library works with the [Composer](https://getcomposer.org/) package manager. Navigate to the root of the repository and run 
+Download the source, clone the repository or use [Composer](https://getcomposer.org/). 
 
 ```
-$ composer install
+$ composer require "Blockchain/Blockc"
 ```
 
 This will create the `/vendor` folder in the repository root. 
